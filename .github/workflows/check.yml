@@ -16,19 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup SSH Agent
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_GIT }}" >> ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_ed25519
-
-          cat <<EOF > ~/.ssh/config
-          Host *
-          StrictHostKeyChecking no
-          EOF
-
       - name: Install Lix
         uses: DeterminateSystems/nix-installer-action@main
         with:
